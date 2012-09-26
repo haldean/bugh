@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
 		name='bugh',
@@ -8,4 +8,5 @@ setup(
 		author_email='will.h.brown@gmail.com',
 		url='https://github.com/haldean/bugh',
 		scripts=['bugh'],
+		install_requires=['sh', 'requests'],
 		)
