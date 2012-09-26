@@ -1,0 +1,47 @@
+#!/usr/bin/python2.7
+# vim: filetype=python
+
+# bugh: Make read-only backups of your Github repositories
+# Copyright (C) 2012, Will Haldean Brown
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import requests
+import os.path
+from sh import git, cd
+
+git_pull = git.bake('pull')
+git_clone = git.bake('clone')
+
+def user_repos(user):
+	req = requests.get('https://api.github.com/users/%s/repos' % user)
+	return req.json
+
+def clone_repos(repos):
+	for repo in repos:
+		if os.path.exists(repo['name']):
+			print 'Pulling changes for %s' % repo['name']
+			cd(repo['name'])
+			git_pull('origin', 'master')
+			cd('..')
+		else:
+			print 'Cloning %s' % repo['name']
+			git_clone(repo["clone_url"])
+
+if __name__ == '__main__':
+  import sys
+  if len(sys.argv) != 2:
+    print 'Usage: %s [github username]' % __file__
+  else:
+    clone_repos(user_repos(sys.argv[1]))
