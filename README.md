@@ -5,9 +5,9 @@ bugh: Backup Github
 account, to protect you from hacking, catastrophic data loss, and your own
 destructive power. To install, run:  
 
-    sudo python setup.py install
+    sudo pip install bugh
 
-After installing, you can run `bugh [your Github username]` from the directory
+After installing, run `bugh [your Github username]` from the directory
 in which you would like to mirror your repositories. The first invocation clones
 every repository in your Github account. Repeated invocations will run `git
 pull` in already-cloned repositories, and will clone repositories that don't
