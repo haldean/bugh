@@ -19,4 +19,16 @@ support mirroring private repositories.
 
 `bugh` is made by [Will Haldean Brown][1] and is distributed under the GPLv3.
 
+Release Notes
+---
+
+Release versions here map to release versions on PyPI.
+
+    1.0:
+      Initial release.
+
+    1.1.1:
+      Increase limit on mirrorable repositories to 100.
+      Continue after failure if a repository fails during pull.
+
 [1]:http://haldean.org
